@@ -96,7 +96,7 @@
 -(void)onTick
 {
     constraintFour.constant+=5;
-    if (constraintFour.constant == 320) {
+    if (constraintFour.constant == 100) {
         [timer invalidate];
     }
 }
