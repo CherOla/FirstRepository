@@ -14,10 +14,91 @@
 
 @implementation AppDelegate
 
+{
+    UIViewController *cont;
+    NSLayoutConstraint *constraintOne;
+    NSLayoutConstraint *constraintTwo;
+    NSLayoutConstraint *constraintThree;
+    NSLayoutConstraint *constraintFour;
+    
+    NSTimer *timer;
+    
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    cont = [[UIViewController alloc] init];
+    self.window.rootViewController = cont;
+    
+    [cont loadView];
+    cont.view.backgroundColor = [UIColor whiteColor];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.1f
+                                             target:self
+                                           selector:@selector(onTick)
+                                           userInfo:nil
+                                            repeats:YES];
+    UIView *first = [[UIView alloc]init];
+    first.backgroundColor = [UIColor greenColor];
+    first.translatesAutoresizingMaskIntoConstraints = NO;
+    [cont.view addSubview:first];
+    
+    
+    
+    constraintOne = [NSLayoutConstraint constraintWithItem:first
+                                                 attribute:NSLayoutAttributeWidth
+                                                 relatedBy:NSLayoutRelationEqual
+                                                    toItem:nil
+                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                multiplier:1.0f
+                                                  constant:100];
+    
+    constraintTwo = [NSLayoutConstraint constraintWithItem:first
+                                                 attribute:NSLayoutAttributeHeight
+                                                 relatedBy:NSLayoutRelationEqual
+                                                    toItem:nil
+                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                multiplier:1.0f
+                                                  constant:100];
+    
+    constraintThree = [NSLayoutConstraint constraintWithItem:first
+                                                   attribute:NSLayoutAttributeCenterX
+                                                   relatedBy:NSLayoutRelationEqual
+                                                      toItem:cont.view
+                                                   attribute:NSLayoutAttributeCenterX
+                                                  multiplier:1.0f
+                                                    constant:0];
+    
+    constraintFour = [NSLayoutConstraint constraintWithItem:first
+                                                  attribute:NSLayoutAttributeCenterY
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:cont.view
+                                                  attribute:NSLayoutAttributeCenterY
+                                                 multiplier:1.0f
+                                                   constant:0];
+    
+    
+    
+    [cont.view addConstraint:constraintOne];
+    [cont.view addConstraint:constraintTwo];
+    [cont.view addConstraint:constraintThree];
+    [cont.view addConstraint:constraintFour];
+    
+    
+    
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
+}
+
+-(void)onTick
+{
+    constraintFour.constant+=5;
+    if (constraintFour.constant == 320) {
+        [timer invalidate];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
