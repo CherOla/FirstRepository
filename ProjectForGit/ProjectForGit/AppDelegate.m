@@ -44,8 +44,6 @@
     first.translatesAutoresizingMaskIntoConstraints = NO;
     [cont.view addSubview:first];
     
-    
-    
     constraintOne = [NSLayoutConstraint constraintWithItem:first
                                                  attribute:NSLayoutAttributeWidth
                                                  relatedBy:NSLayoutRelationEqual
